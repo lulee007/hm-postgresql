@@ -1,6 +1,8 @@
 # pg-mysql
 
 ```sql
+CREATE EXTENSION mysql_fdw;
+
 -- drop server if exists mysql_server;
 CREATE SERVER mysql_server
     FOREIGN DATA WRAPPER mysql_fdw
