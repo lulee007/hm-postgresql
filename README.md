@@ -1,16 +1,20 @@
-# hm/postgis
+# hm/postgresql
 
 - 添加 mysql
 - 添加 oracle
+- 挂载 data 目录
+- 修改默认日志 mod
 
 ## 构建
 
-`docker build -t hm-pg11:vxxx .`
+`docker build -t handsmap/postgresql.11.2:1.0.0 .`
 
 **注意:**
 
 - oracle_fdw-2.2.0.zip `oracle_fdw-2.2.0.zip` 文件中的 `Makefile` 文件内容: `DOCS = README.oracle_fdw` 已经修改为 `DOCS = README.md`,从外网下载的原始压缩包不对
 - [mysql_fdw-master.zip](https://github.com/EnterpriseDB/mysql_fdw.git) Latest commit 5974209 on 28 Sep 2019
+
+---
 
 ## 参考 mdillon/postgis
 
@@ -20,10 +24,10 @@ The `mdillon/postgis` image provides a Docker container running Postgres with [P
 
 This image ensures that the default database created by the parent `postgres` image will have the following extensions installed:
 
-* `postgis`
-* `postgis_topology`
-* `fuzzystrmatch`
-* `postgis_tiger_geocoder`
+- `postgis`
+- `postgis_topology`
+- `fuzzystrmatch`
+- `postgis_tiger_geocoder`
 
 Unless `-e POSTGRES_DB` is passed to the container at startup time, this database will be named after the admin user (either `postgres` or the user specified with `-e POSTGRES_USER`). If you would prefer to use the older template database mechanism for enabling PostGIS, the image also provides a PostGIS-enabled template database called `template_postgis`.
 

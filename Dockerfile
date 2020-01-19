@@ -14,6 +14,8 @@ RUN apt-get update && \
     make && \
     rm -rf /var/lib/apt/lists/*
 
+# RUN ls /var/lib/postgresql/data
+
 RUN mkdir -p /docker-entrypoint-initdb.d
 
 # mysql
@@ -50,7 +52,12 @@ RUN cp /usr/lib/oracle/19.3/client64/lib/libclntsh.so.19.1 /usr/lib && \
 ENV ORACLE_HOME "/usr/lib/oracle/19.3/client64"
 ENV LD_LIBRARY_PATH "/usr/lib/oracle/19.3/client64/lib:/usr/lib/oracle/19.3/client64"
 
+VOLUME [ "/var/lib/postgresql/data" ]
+
 RUN apt-get purge --auto-remove alien build-essential make zip wget -y && \
     apt-get clean
-
-# docker run --restart=always -d --name hmgis-postgres -e POSTGRES_PASSWORD=xxxxx -p 5432:5432 hm-pg11:0.1 
+# PGDATA:/var/lib/postgresql/data/
+# docker run --restart=always -d --name hm-pg -e POSTGRES_PASSWORD=xxxx -p 5432:5432 -v `pwd`/pg_data:/var/lib/postgresql/data handsmap/postgresql.11.2:1.0.0
+# docker restart hmgis-postgres-2
+# docker cp postgresql.conf hmgis-postgres-2:/var/lib/postgresql/data/postgresql.conf
+# docker build -t handsmap/postgresql.11.2:1.0.0 .
