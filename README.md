@@ -1,18 +1,36 @@
 # hm/postgresql
 
-- 添加 mysql
-- 添加 oracle
+- 添加 mysql 扩展
+- 添加 oracle 扩展
 - 挂载 data 目录
 - 修改默认日志 mod
 
 ## 构建
 
-`docker build -t handsmap/postgresql.11.2:1.0.0 .`
+1. 下载源码
 
-**注意:**
+   ```sh
+   git clone https://github.com/lulee007/hm-postgresql.git
+   ```
 
-- oracle_fdw-2.2.0.zip `oracle_fdw-2.2.0.zip` 文件中的 `Makefile` 文件内容: `DOCS = README.oracle_fdw` 已经修改为 `DOCS = README.md`,从外网下载的原始压缩包不对
-- [mysql_fdw-master.zip](https://github.com/EnterpriseDB/mysql_fdw.git) Latest commit 5974209 on 28 Sep 2019
+   **注意:**
+
+   - oracle_fdw-2.2.0.zip `oracle_fdw-2.2.0.zip` 文件中的 `Makefile` 文件内容: `DOCS = README.oracle_fdw` 已经修改为 `DOCS = README.md`,从官网下载的原始压缩包不对
+   - [mysql_fdw-master.zip](https://github.com/EnterpriseDB/mysql_fdw.git) Latest commit 5974209 on 28 Sep 2019
+
+2. 构建
+
+   ```sh
+   docker build -t handsmap/postgresql.11.2:1.0.0 .
+   ```
+
+3. 运行
+
+   ```sh
+   docker run --restart=always -d --name hm-pg -e POSTGRES_PASSWORD=xxxx -p 5432:5432 -v `pwd`/pg_data:/var/lib/postgresql/data handsmap/postgresql.11.2:1.0.0
+   ```
+
+   **注意:** `pwd` 需要改为实际路径,`xxxx` 也需要改为实际密码
 
 ---
 
